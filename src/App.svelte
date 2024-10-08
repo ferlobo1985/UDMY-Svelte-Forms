@@ -3,11 +3,13 @@
   let age = '';
   let terms = true;
   let newsletter;
+  let country;
 
   $: console.log(name)
   $: console.log(age)
   $: console.log(terms)
   $: console.log(newsletter)
+  $: console.log(country)
 </script>
 
 <div class="container">
@@ -41,5 +43,15 @@
     <input type="checkbox" class="form-check-input" name="newsletter" value="no" bind:group={newsletter}> 
     <label for="newsletter" class="form-check-label">NO</label>
   </div>
+
+  <hr/>
+
+  <h3>Country</h3>
+  <select class="form-select" bind:value={country}>
+    <option disabled selected>Select a country</option>
+    <option value="italy">Italy</option>
+    <option value="spain">Spain</option>
+    <option value="canada">Canada</option>
+  </select>
 
 </div>
