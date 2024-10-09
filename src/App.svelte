@@ -1,23 +1,34 @@
 <script>
   import { createForm } from "felte";
+  import { validator } from '@felte/validator-yup';
+  import * as yup from 'yup';
+
+
+  const schema = yup.object({
+    name:yup.string()
+    .min(2,'Sorry bro, a min of 2')
+    .required('Name is required :*'),
+    age: yup.number().required('Age is required :*')
+  })
 
   const { form, errors } = createForm({
     onSubmit:(values,context)=>{
       console.log(values)
       console.log(context)
     },
-    validate:(values)=>{
-      const errors = {}
+    extend: validator({schema})
+    // validate:(values)=>{
+    //   const errors = {}
 
-      if(!values.age) errors.age = 'Age not be empty';
-      if(!values.name) errors.name = 'Name not be empty';
-      if(values.name &&values.name.length < 2) {
-        errors.name = 'Must be over 2';
-      }
+    //   if(!values.age) errors.age = 'Age not be empty';
+    //   if(!values.name) errors.name = 'Name not be empty';
+    //   if(values.name &&values.name.length < 2) {
+    //     errors.name = 'Must be over 2';
+    //   }
 
-      console.log(errors)
-      return errors;
-    }
+    //   console.log(errors)
+    //   return errors;
+    // }
   })
  
 </script>
@@ -36,7 +47,7 @@
 
     <div class="mb-3">
       <label for="age" class="form-label">Age</label>
-      <input type="text" class="form-control" name="age">
+      <input type="number" class="form-control" name="age">
       {#if $errors.age}
           <span>{$errors.age}</span>
       {/if}
